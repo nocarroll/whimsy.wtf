@@ -1,40 +1,50 @@
 import { useEffect, useState } from 'react';
+import { RepeatIcon } from '@chakra-ui/icons';
 import {
+  Box,
   Button,
   Center,
   Container,
-  Divider,
   Heading,
   Text
-} from "@chakra-ui/react"
+} from '@chakra-ui/react'
 
-import { generateSillySuggestion } from './generators/silly';
+import { getOne } from './generators/silly';
 import './App.css';
 
 function App() {
   const [suggestion, setSuggestion] = useState('');
 
   function onGenerate () {
-    setSuggestion(generateSillySuggestion());
+    setSuggestion(getOne());
   }
 
   useEffect(onGenerate, []);
 
   return (
     <div className="App">
-      <Container>
-        <Heading>fawm-gen</Heading>
-        <Center h={50}>
-          <Divider />
-        </Center>
-        <Center bg="white" h={200}>
-          <Text fontSize="2xl">{suggestion}</Text>
-        </Center>
-        <Center h={50}>
-          <Divider />
-        </Center>
-        <Button onClick={onGenerate}>New Suggestion</Button>
-      </Container>
+      <Box
+        p={4}
+        h="100vh"
+        bgGradient="linear(red.100 0%, orange.100 25%, yellow.100 50%)"
+      >
+        <Container>
+          <Heading>fawm-gen</Heading>
+          <Box h={10} />
+          <Center h={200} p={6}>
+            <Text color="#333" fontSize="2xl">{suggestion}</Text>
+          </Center>
+          <Box h={10} />
+          <Button
+            isFullWidth
+            onClick={onGenerate}
+            colorScheme="pink"
+            leftIcon={<RepeatIcon/>}
+          >
+            New Suggestion
+          </Button>
+        </Container>
+      </Box>
     </div>
   );
 }

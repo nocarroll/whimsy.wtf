@@ -49,7 +49,7 @@ function futurePlace () {
   return sample(['the universe', 'the unknown', 'the earth', `${sentencer.make('the {{ adjective }} earth')}`, 'the darkest part of their mind', 'Andromeda', 'Mars', 'Neptune', 'Pluto', 'a distant Moon', 'a fictional planet', `${sentencer.make('{{ an_adjective }} place')}`, 'an alternate reality', 'their memories', 'a quiet place', 'a forbidden place']);
 }
 
-export function generateSillySuggestion () {
+function generateSillySuggestion () {
   const sillySuggestions = [
     `A ${typeOfSong()} about a ${whimsicalIngVerb()} ${noun()}`,
     `A ${typeOfSong()} from the perspective of a ${animal().toLowerCase()}`,
@@ -66,17 +66,20 @@ export function generateSillySuggestion () {
 function generateSillySongTitle () {
   const sillySongTitle = [
     `Song Title: What Do I Do With My ${capitalCase(temperature())} ${capitalCase(adjective())} ${capitalCase(emotion())}?`,
-    `Song Title: ${capitalCase(emotion())} in ${faker.address.city()}`,
-    `Song Title: ${capitalCase(emotion())} in ${faker.address.country()}`,
-    `Song Title: I Thought I Saw You in ${faker.address.country()}`,
-    `Song Title: I Thought I Saw You ${capitalCase(whimsicalIngVerb())} in ${faker.address.country()}`,
+    `Song Title: ${capitalCase(emotion())} in ${sample([faker.address.city(), faker.address.country()])}`,
+    sample([`Song Title: I Thought I Saw You in ${faker.address.country()}`, `Song Title: I Thought I Saw You ${capitalCase(whimsicalIngVerb())} in ${faker.address.country()}`]),
     `Song Title: ${capitalCase(faker.hacker.ingverb())} in ${faker.address.city()}`,
     `Song Title: ${capitalCase(`${faker.hacker.ingverb()} ${noun()} and ${noun()}`)}`,
-    `Song Title: ${capitalCase(`${adjective()} ${noun()}`)}`,
-    `Song Title: ${capitalCase(`${adjective()} ${animal()}`)}`,
+    `Song Title: ${capitalCase(`${adjective()} ${sample([noun(), animal()])}`)}`,
     `Song Title: ${capitalCase(`${faker.hacker.ingverb()} ${adjective()} ${animal()}`)}`,
     `Song Title: ${capitalCase(`${faker.commerce.color()} ${animal()}`)}`
   ];
 
   return sample(sillySongTitle);
+}
+
+
+
+export function getOne() {
+  return sample([generateSillySuggestion(), generateSillySongTitle()]);
 }
