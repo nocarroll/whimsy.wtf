@@ -1,12 +1,14 @@
 import { useEffect } from 'react';
 import {
   Box,
+  ListItem,
   Modal,
   ModalOverlay,
   ModalContent,
   ModalHeader,
   ModalBody,
   ModalCloseButton,
+  OrderedList,
   useDisclosure
 } from "@chakra-ui/react"
 
@@ -17,7 +19,7 @@ function HistoryModal ({ controlIsOpen, suggestionHistory, afterClose }) {
     if (controlIsOpen) onOpen();
   }
 
-  useEffect(onControlIsOpenChange, [controlIsOpen]);
+  useEffect(onControlIsOpenChange, [controlIsOpen, onOpen]);
 
   return (
     <Modal
@@ -29,17 +31,18 @@ function HistoryModal ({ controlIsOpen, suggestionHistory, afterClose }) {
     >
         <ModalOverlay />
         <ModalContent>
-          <ModalHeader>Last 10 Suggestions</ModalHeader>
+          <ModalHeader pb={0}>Recent Suggestions</ModalHeader>
           <ModalCloseButton />
-          <ModalBody>
-            {suggestionHistory.map((suggestion, index) => {
-              return <Box
-                key={suggestion}
-                mb={2}
-              >
-              {'‣'} {suggestion}
-              </Box>;
-            })}
+          <ModalBody p={6}>
+            <OrderedList>
+              {suggestionHistory.map(suggestion => {
+                return <ListItem
+                  key={suggestion}
+                >
+                  {suggestion}
+                </ListItem>;
+              })}
+            </OrderedList>
           </ModalBody>
           <Box mb={2} />
         </ModalContent>

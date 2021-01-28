@@ -5,8 +5,7 @@ import {
   Button,
   Center,
   Container,
-  Text,
-  useDisclosure
+  Text
 } from '@chakra-ui/react'
 
 import AppHeader from './AppHeader';
