@@ -5,18 +5,24 @@ import {
   Button,
   Center,
   Container,
-  Heading,
-  Text
+  Text,
+  useDisclosure
 } from '@chakra-ui/react'
 
+import AppHeader from './AppHeader';
+import HistoryModal from './HistoryModal';
 import { getOne } from './generators/silly';
 import './App.css';
 
 function App() {
+  const [historyModalIsOpen, setHistoryModalIsOpen] = useState(false);
   const [suggestion, setSuggestion] = useState('');
+  const [suggestionHistory, setSuggestionHistory] = useState([]);
 
   function onGenerate () {
-    setSuggestion(getOne());
+    const nextSuggestion = getOne();
+    setSuggestionHistory([nextSuggestion, ...suggestionHistory].slice(0, 10));
+    setSuggestion(nextSuggestion);
   }
 
   useEffect(onGenerate, []);
@@ -29,12 +35,10 @@ function App() {
         bgGradient="linear(red.100 0%, orange.100 25%, yellow.100 50%)"
       >
         <Container>
-          <Heading>fawm-gen</Heading>
-          <Box h={10} />
-          <Center h={200} p={6}>
+          <AppHeader onHistoryClick={() => setHistoryModalIsOpen(true)} />
+          <Center h={200} p={6} mb={6}>
             <Text color="#333" fontSize="2xl">{suggestion}</Text>
           </Center>
-          <Box h={10} />
           <Button
             isFullWidth
             onClick={onGenerate}
@@ -44,6 +48,11 @@ function App() {
             New Suggestion
           </Button>
         </Container>
+        <HistoryModal
+          controlIsOpen={historyModalIsOpen}
+          suggestionHistory={suggestionHistory}
+          afterClose={() => setHistoryModalIsOpen(false)}
+        />
       </Box>
     </div>
   );
