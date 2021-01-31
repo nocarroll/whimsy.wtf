@@ -1,7 +1,6 @@
 import faker from 'faker';
 import sample from 'lodash.sample';
 import { capitalCase } from 'change-case';
-import sentencer from 'sentencer';
 
 import animals from '../data/animals';
 

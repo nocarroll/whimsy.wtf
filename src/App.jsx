@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { RepeatIcon } from '@chakra-ui/icons';
 import {
   Box,
@@ -15,18 +15,17 @@ import suggestionGenerator from './generators';
 import './App.css';
 
 function App() {
+  const firstSuggestion = suggestionGenerator();
   const [historyModalIsOpen, setHistoryModalIsOpen] = useState(false);
   const [infoModalIsOpen, setInfoModalIsOpen] = useState(false);
-  const [suggestion, setSuggestion] = useState('');
-  const [suggestionHistory, setSuggestionHistory] = useState([]);
+  const [suggestion, setSuggestion] = useState(firstSuggestion);
+  const [suggestionHistory, setSuggestionHistory] = useState([firstSuggestion]);
 
   function onGenerate () {
     const nextSuggestion = suggestionGenerator();
     setSuggestionHistory([nextSuggestion, ...suggestionHistory].slice(0, 10));
     setSuggestion(nextSuggestion);
   }
-
-  useEffect(onGenerate, []);
 
   return (
     <div className="App">
