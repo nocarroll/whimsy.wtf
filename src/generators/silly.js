@@ -6,11 +6,11 @@ import sentencer from 'sentencer';
 import animals from '../data/animals';
 
 function whimsicalIngVerb () {
-  return sample(['crying', 'wandering', 'weeping', 'laughing', 'singing', 'dancing', 'stargazing', 'trainspotting'])
+  return sample(['crying', 'wandering', 'weeping', 'laughing', 'singing', 'dancing', 'stargazing', 'trainspotting', 'drifting', 'reminiscing', 'walking', 'floating'])
 }
 
 function temperature () {
-  return sample(['hot', 'cold', 'ice-cold', 'cool', 'mellow']);
+  return sample(['hot', 'cold', 'ice-cold', 'cool', 'mellow', 'romantic', 'gloomy', 'fearful', 'tense', 'mysterious']);
 }
 
 function emotion () {
@@ -30,7 +30,7 @@ function animal () {
 }
 
 function typeOfSong () {
-  return sample(['ballad', 'folk song', ' waltz', 'song', 'tune', 'hit song']);
+  return sample(['ballad', 'folk song', ' waltz', 'song', 'tune', 'hit song', 'hymn', 'diss track', 'three-chord song', 'twelve bar blues', 'lullaby', 'slow jam', 'show tune', 'novelty song']);
 }
 
 function oddGenre () {
@@ -49,15 +49,27 @@ function futurePlace () {
   return sample(['the universe', 'the unknown', 'the earth', `${sentencer.make('the {{ adjective }} earth')}`, 'the darkest part of their mind', 'Andromeda', 'Mars', 'Neptune', 'Pluto', 'a distant Moon', 'a fictional planet', `${sentencer.make('{{ an_adjective }} place')}`, 'an alternate reality', 'their memories', 'a quiet place', 'a forbidden place']);
 }
 
+function wondering () {
+  return sample(['What Do I Do With My', 'How Can I Handle This', 'What Is This', 'Why Can\'t I Help This', 'Why Can\'t I Help My']);
+}
+
+function iSawYou () {
+  return sample(['I Thought I Saw You', 'I Passed You', 'I Knew You Were', 'I Had A Dream You Were', 'Remember']);
+}
+
+function concerning () {
+  return sample(['from the perspective of', 'telling the story of', 'about the life of', 'concerning', 'examining the morals of', 'from the point of view of']);
+}
+ 
 function generateSillySuggestion () {
   const sillySuggestions = [
-    `A ${typeOfSong()} about a ${whimsicalIngVerb()} ${noun()}`,
-    `A ${typeOfSong()} from the perspective of a ${animal().toLowerCase()}`,
+    sample([`A ${typeOfSong()} about a ${noun()}`, `A ${typeOfSong()} about a ${whimsicalIngVerb()} ${noun()}`]),
+    `A ${typeOfSong()} ${concerning()} a ${animal().toLowerCase()}`,
     `A ${oddGenre()} about a ${temperature()} ${animal().toLowerCase()} experiencing ${emotion()}`,
     `A ${oddGenre()} about a ${animal().toLowerCase()} ${action()} ${futurePlace()}`,
     `A ${oddGenre()} about a ${person()} ${action()} ${futurePlace()}`,
     `A ${oddGenre()} about ${action()} ${futurePlace()}`,
-    `A ${oddGenre()} about ${whimsicalIngVerb()} in ${faker.address.city()}`,
+    sample([`A ${oddGenre()} about ${whimsicalIngVerb()}`, `A ${oddGenre()} about ${whimsicalIngVerb()} in ${faker.address.city()}`]),
     `A ${typeOfSong()} about ${sentencer.make('the {{ adjective }} {{ nouns }}')}`
   ];
   return sample(sillySuggestions);
@@ -65,9 +77,9 @@ function generateSillySuggestion () {
 
 function generateSillySongTitle () {
   const sillySongTitle = [
-    `Song Title: What Do I Do With My ${capitalCase(temperature())} ${capitalCase(adjective())} ${capitalCase(emotion())}?`,
+    `Song Title: ${wondering()} ${capitalCase(temperature())} ${capitalCase(adjective())} ${capitalCase(emotion())}?`,
     `Song Title: ${capitalCase(emotion())} in ${sample([faker.address.city(), faker.address.country()])}`,
-    sample([`Song Title: I Thought I Saw You in ${faker.address.country()}`, `Song Title: I Thought I Saw You ${capitalCase(whimsicalIngVerb())} in ${faker.address.country()}`]),
+    sample([`Song Title: ${iSawYou()} in ${faker.address.country()}`, `Song Title: ${iSawYou()} ${capitalCase(whimsicalIngVerb())} in ${faker.address.country()}`]),
     `Song Title: ${capitalCase(faker.hacker.ingverb())} in ${faker.address.city()}`,
     `Song Title: ${capitalCase(`${faker.hacker.ingverb()} ${noun()} and ${noun()}`)}`,
     `Song Title: ${capitalCase(`${adjective()} ${sample([noun(), animal()])}`)}`,
@@ -77,8 +89,6 @@ function generateSillySongTitle () {
 
   return sample(sillySongTitle);
 }
-
-
 
 export function getOne() {
   return sample([generateSillySuggestion(), generateSillySongTitle()]);

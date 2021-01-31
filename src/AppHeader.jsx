@@ -7,11 +7,11 @@ import {
   Spacer
 } from '@chakra-ui/react'
 
-function AppHeader ({ onHistoryClick }) {
+function AppHeader ({ onHistoryClick, onInfoClick }) {
   return (
     <Box mb={4} bg="white" p={[2, 4]} borderRadius={6}>
       <Flex>
-        <Heading color="#333">fawm-gen</Heading>
+        <Heading color="#333">whimsy.wtf</Heading>
         <Spacer />
         <IconButton
           onClick={onHistoryClick}
@@ -22,6 +22,7 @@ function AppHeader ({ onHistoryClick }) {
           icon={<RepeatClockIcon />}
         />
         <IconButton
+          onClick={onInfoClick}
           variant="outline"
           colorScheme="pink"
           fontSize="20px"
