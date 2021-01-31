@@ -6,7 +6,7 @@ import sentencer from 'sentencer';
 import animals from '../data/animals';
 
 function whimsicalIngVerb () {
-  return sample(['crying', 'wandering', 'weeping', 'laughing', 'singing', 'dancing', 'stargazing', 'trainspotting', 'drifting', 'reminiscing', 'walking', 'floating'])
+  return sample(['crying', 'wandering', 'weeping', 'laughing', 'singing', 'dancing', 'stargazing', 'smiling', 'drifting', 'reminiscing', 'walking', 'floating'])
 }
 
 function temperature () {

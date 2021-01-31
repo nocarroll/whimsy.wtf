@@ -1,3 +1,4 @@
+import * as randomNumber from 'random-number';
 import faker from 'faker';
 import sample from 'lodash.sample';
 import { capitalCase } from 'change-case';
@@ -41,7 +42,19 @@ function preposition () {
 }
 
 function forlornIngVerb () {
-  return sample(['crying', 'wandering', 'weeping', 'laughing', 'singing', 'dancing', 'trainspotting', 'drifting', 'reminiscing', 'walking', 'floating', 'leaving', 'losing', 'not joking', 'not laughing']);
+  return sample(['crying', 'wandering', 'weeping', 'laughing', 'singing', 'dancing', 'drifting', 'reminiscing', 'walking', 'floating', 'leaving', 'losing', 'smiling', 'meditating']);
+}
+
+function countryPreposition () {
+  return sample(['to', 'via', 'declares war on', 'and', 'with a hint of']);
+}
+
+function season () {
+  return sample(['Spring', 'Summer', 'Autumn', 'Winter']);
+}
+
+function year () {
+  return randomNumber({ min: 1900, max: 2030, integer: true });
 }
 
 function generateFolkSongTitle () {
@@ -49,17 +62,17 @@ function generateFolkSongTitle () {
     `The ${capitalCase(folkSongType())} of ${faker.name.findName()}`,
     `${capitalCase(informalGreeting())} ${faker.name.firstName()}, ${personalPronoun()} ${capitalCase(forlornIngVerb())}`,
     `Last ${capitalCase(modeOfTransport())} ${capitalCase(preposition())} ${faker.address.city()}`,
-    `${faker.address.country()} to ${faker.address.country()}`,
+    `${faker.address.country()} ${countryPreposition()} ${faker.address.country()}`,
     sample([`He's ${capitalCase(vehicleAdjective())} But He Ain't No ${faker.vehicle.manufacturer()}`, `She's ${capitalCase(vehicleAdjective())} But She Ain't No ${faker.vehicle.manufacturer()}`]),
     `${stayAway()} My ${faker.vehicle.manufacturer()}`,
     `${refusal()}, ${faker.name.firstName()}`,
-    capitalCase(`${informalGreeting()} ${animal()}`)
+    capitalCase(`${informalGreeting()} ${animal()}`),
+    `${faker.name.firstName()} the ${capitalCase(animal())}`,
+    sample([`${faker.address.country()}, ${year()}`, `Remember ${faker.address.country()} in ${year()}`, `Remember ${faker.address.city()} in the ${season()}`, `${faker.address.city()} (${season()} ${year()})`])
   ];
 
   return `Song Title: ${sample(folkSongTitle)}`;
 }
-
-
 
 export function getOne() {
   return sample([generateFolkSongTitle()]);
