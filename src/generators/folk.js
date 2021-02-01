@@ -2,11 +2,21 @@ import * as randomNumber from 'random-number';
 import faker from 'faker';
 import sample from 'lodash.sample';
 import { capitalCase } from 'change-case';
+import sentencer from 'sentencer';
 
 import animals from '../data/animals';
+import { typeOfSong } from './generic';
+
+function noun () {
+  return sentencer.make('{{ noun }}');
+}
+
+function adjective () {
+  return sentencer.make('{{ adjective }}');
+}
 
 function animal () {
-  return sample(animals);
+  return sample(animals).toLowerCase();
 }
 
 function refusal () {
@@ -57,6 +67,29 @@ function year () {
   return randomNumber({ min: 1900, max: 2030, integer: true });
 }
 
+function dead () {
+  return sample(['dead', 'happy', 'deceased', 'distant', adjective()]);
+}
+
+function pet () {
+  return sample(['pet', 'friend', 'family member', 'distant']);
+}
+
+function correspondence () {
+  return sample(['A Letter', 'Love Letter', 'Telegram', 'Fan Mail']);
+}
+
+function generateFolkSongSuggestion () {
+  const folkSongSuggestion = [
+    `A ${typeOfSong()} exploring ${noun()}`,
+    `A ${typeOfSong()} about a ${noun()}`,
+    `A ${typeOfSong()} about a ${animal()} called ${faker.name.firstName()}`,
+    `A ${typeOfSong()} about a ${dead()} ${pet()}`,
+  ];
+
+  return sample(folkSongSuggestion);
+}
+
 function generateFolkSongTitle () {
   const folkSongTitle = [
     `The ${capitalCase(folkSongType())} of ${faker.name.findName()}`,
@@ -68,12 +101,13 @@ function generateFolkSongTitle () {
     `${refusal()}, ${faker.name.firstName()}`,
     capitalCase(`${informalGreeting()} ${animal()}`),
     `${faker.name.firstName()} the ${capitalCase(animal())}`,
-    sample([`${faker.address.country()}, ${year()}`, `Remember ${faker.address.country()} in ${year()}`, `Remember ${faker.address.city()} in the ${season()}`, `${faker.address.city()} (${season()} ${year()})`])
+    sample([`${faker.address.country()}, ${year()}`, `Remember ${faker.address.country()} in ${year()}`, `Remember ${faker.address.city()} in the ${season()}`, `${faker.address.city()} (${season()} ${year()})`]),
+    `${correspondence()} from ${faker.address.city()}`
   ];
 
   return `Song Title: ${sample(folkSongTitle)}`;
 }
 
 export function getOne() {
-  return sample([generateFolkSongTitle()]);
+  return sample([generateFolkSongTitle(), generateFolkSongSuggestion()]);
 }

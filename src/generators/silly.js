@@ -4,6 +4,7 @@ import { capitalCase } from 'change-case';
 import sentencer from 'sentencer';
 
 import animals from '../data/animals';
+import { typeOfSong } from './generic';
 
 function whimsicalIngVerb () {
   return sample(['crying', 'wandering', 'weeping', 'laughing', 'singing', 'dancing', 'stargazing', 'smiling', 'drifting', 'reminiscing', 'walking', 'floating'])
@@ -27,10 +28,6 @@ function adjective () {
 
 function animal () {
   return sample(animals);
-}
-
-function typeOfSong () {
-  return sample(['ballad', 'folk song', ' waltz', 'song', 'tune', 'hit song', 'hymn', 'diss track', 'three-chord song', 'twelve bar blues', 'lullaby', 'slow jam', 'show tune', 'novelty song']);
 }
 
 function oddGenre () {

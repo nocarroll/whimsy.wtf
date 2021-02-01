@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useCallback } from 'react';
 import { RepeatIcon } from '@chakra-ui/icons';
 import {
   Box,
@@ -11,21 +11,21 @@ import {
 import AppHeader from './AppHeader';
 import HistoryModal from './HistoryModal';
 import InfoModal from './InfoModal';
-import suggestionGenerator from './generators';
+import { getSuggestion } from './generators';
 import './App.css';
 
 function App() {
-  const firstSuggestion = suggestionGenerator();
+  const firstSuggestion = getSuggestion();
   const [historyModalIsOpen, setHistoryModalIsOpen] = useState(false);
   const [infoModalIsOpen, setInfoModalIsOpen] = useState(false);
   const [suggestion, setSuggestion] = useState(firstSuggestion);
   const [suggestionHistory, setSuggestionHistory] = useState([firstSuggestion]);
 
-  function onGenerate () {
-    const nextSuggestion = suggestionGenerator();
+  const onGenerate = useCallback(() => {
+    const nextSuggestion = getSuggestion(suggestion);
     setSuggestionHistory([nextSuggestion, ...suggestionHistory].slice(0, 10));
     setSuggestion(nextSuggestion);
-  }
+  }, [suggestion, suggestionHistory]);
 
   return (
     <div className="App">
